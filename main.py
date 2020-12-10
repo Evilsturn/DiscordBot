@@ -1,3 +1,4 @@
+#Neko is love OwO
 import discord
 from discord import client
 from discord.ext import commands
