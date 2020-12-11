@@ -4,7 +4,7 @@ from datetime import datetime, time
 # from asyncio import sleep
 
 
-botToken = 'NzI5MjM3NzU0Mzk0OTY4MTA0.XwGBlQ.ZSEUzTqELtMNqnQPc7u4nYYbnhE'
+botToken = '{Bot Token hehe}'
 client = commands.Bot(command_prefix="!bot ")
 
 
