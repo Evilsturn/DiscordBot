@@ -1,12 +1,10 @@
-from attr import __title__
-from discord import Embed, channel, colour, embeds
 import discord
 from discord.ext import commands
 from datetime import datetime, time
 # from asyncio import sleep
 
 
-botToken = 'NzI5MjM3NzU0Mzk0OTY4MTA0.XwGBlQ.gkDH5D1ePMU-4ybUHvh6l2QwyWI'
+botToken = 'NzI5MjM3NzU0Mzk0OTY4MTA0.XwGBlQ.ZSEUzTqELtMNqnQPc7u4nYYbnhE'
 client = commands.Bot(command_prefix="!bot ")
 
 
@@ -18,6 +16,13 @@ async def on_ready():
 @client.command()
 async def hello(ctx):
     await ctx.send("Hi!")
+
+
+#  Create a Method for eg displayEmbed(parameters)
+#  Create a embed template so that we can call this method and pass in some information
+#  and it will post an embed with the following information
+#  OH yeah I did not mention it but can you make @ feature so that when recieving the Reminder the user gets notified
+#  K thanks :D
 
 
 @client.command()
