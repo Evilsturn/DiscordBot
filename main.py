@@ -18,12 +18,6 @@ async def hello(ctx):
     await ctx.send("Hi!")
 
 
-#  Create a Method for eg displayEmbed(parameters)
-#  Create a embed template so that we can call this method and pass in some information
-#  and it will post an embed with the following information
-#  OH yeah I did not mention it but can you make @ feature so that when recieving the Reminder the user gets notified
-#  K thanks :D
-
 async def displayEmbed(ctx,title,desc,colour):
     await sleep(2)
     main_embed=discord.Embed(title=title,description=desc,colour=colour)
