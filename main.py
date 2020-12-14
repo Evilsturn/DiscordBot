@@ -18,12 +18,7 @@ async def on_ready():
 async def hello(ctx):
     await ctx.send("Hi!")
 
-
-<<<<<<< HEAD
-async def displayEmbed(ctx, title, desc, colour):
-=======
 async def displayEmbed(ctx,title,desc,colour):
->>>>>>> 89de8698eaf28d178bb6e6674823037ab445b77c
     await sleep(2)
     main_embed = discord.Embed(
         title=title,
