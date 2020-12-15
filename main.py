@@ -44,13 +44,13 @@ async def reminder(ctx, task, timings):
                 "https://cdn.animenewsnetwork.com/thumbnails/max500x500/cms/interest/75566/1192947e.jpg",
                 "https://cdn.animenewsnetwork.com/thumbnails/max500x500/cms/interest/75566/a57fd2dc.jpg",
                 "https://cdn.animenewsnetwork.com/thumbnails/max500x500/cms/interest/75566/c6fc8a3e.jpg"]
-    image_length=len(image_link)-1
+    image_length=len(image_link)
     footer_text=[" ...Heh. You're making the face of someone who's not awake yet. I want you to wake up soon, though. Is that OK?...",
                  "...Hey. Hey! Wake up! How many times do you think I've tried to get you up!? WAKE. UP. NOW!..",
                  "Hey, hey! Wake up, wake up~! We have plans to burn the world today, right? If you don't wake up, it's boring for me~~~!.",
                  "...Geez, you really are bad at waking up. You make me wake you up every time.. Honestly...xD",
                  "Hahahah....I have waked you up now!~~~ Now just go and do the work!!!! [so that you don't get punished like me]......huh? that was nothing! GO. TO. WORK."]
-    footer_length=len(footer_text)-1
+    footer_length=len(footer_text)
 
     title = "REMINDER!!!!"
     colour = discord.Colour.dark_red()
