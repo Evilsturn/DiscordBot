@@ -3,12 +3,11 @@ from discord.ext import commands
 from datetime import datetime
 from asyncio import sleep
 from random import randrange
-
+import discord.ext.commands 
 
 botToken = open("botToken.txt", "r")
 botToken = botToken.read()
 client = commands.Bot(command_prefix="!bot ")
-
 
 @client.event
 async def on_ready():
@@ -19,10 +18,11 @@ async def on_ready():
 async def hello(ctx):
     await ctx.send("Hi!")
 
-async def displayEmbed(ctx,title,colour):
+async def displayEmbed(ctx,title,desc,colour):
     await sleep(2)
     main_embed = discord.Embed(
         title=title,
+        description=desc,
         colour=colour)
     await sleep(2)
     return main_embed
@@ -53,8 +53,9 @@ async def reminder(ctx, task, timings):
     footer_length=len(footer_text)
 
     title = "REMINDER!!!!"
+    desc=None
     colour = discord.Colour.dark_red()
-    branch_embed = await displayEmbed(ctx,title,colour)
+    branch_embed = await displayEmbed(ctx,title,desc,colour)
     branch_embed.set_author(name=user_name,icon_url=ctx.author.avatar_url)
     branch_embed.set_thumbnail(url="{0}".format(image_link[randrange(0, image_length)]))
     branch_embed.add_field(name="**Information:**", value="**Reminder set to: **" +str(task),inline=False)
@@ -82,11 +83,32 @@ async def reminder(ctx, task, timings):
 @client.command(pass_context=True)
 async def reminder_info(ctx):
     title="How to reminder 101!"
+    desc=None
     colour=discord.Colour.green()
-    info_embed=await displayEmbed(ctx, title, colour)
+    info_embed=await displayEmbed(ctx,title,desc,colour)
     info_embed.add_field(name="Format:",value="`------------------`",inline=False)
     info_embed.add_field(name='!bot reminder "your task" time in s/m/h ',value="`------------------`",inline=False)
 
     await ctx.send(embed=info_embed)
+
+@client.command(pass_context=True)
+async def ban(ctx,members:discord.Member,reason=None):
+    await ctx.guild.ban(user=members, reason=reason)
+
+    channel=client.get_channel(648197664659341394)
+    ban_embed=await displayEmbed(ctx, title=f"User{members} has been banned by {ctx.author.name}",colour=discord.Colour.dark_gold())
+    await channel.send(embed=ban_embed)
+
+@client.command(pass_context=True)
+async def kick(ctx, members:discord.Member, reason=None):
+    await ctx.guild.kick(user=members, reason=reason)
+
+    channel=client.get_channel(648197664659341394)
+    kick_embed=await displayEmbed(ctx, title=f"User{members} has been kicked by {ctx.author.name}",colour=discord.Colour.dark_gold())
+    await channel.send(embed=kick_embed)
+
+@client.command(pass_context=True)
+async def clear(ctx, delete=400):
+    await ctx.channel.purge(limit=delete+1)
 
 client.run(botToken)
