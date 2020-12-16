@@ -2,8 +2,7 @@ import discord
 from discord.ext import commands
 from datetime import datetime
 from asyncio import sleep
-from random import randrange
-import discord.ext.commands 
+from random import randrange 
 
 botToken = open("botToken.txt", "r")
 botToken = botToken.read()
