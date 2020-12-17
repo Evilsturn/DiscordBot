@@ -7,11 +7,11 @@ from random import randrange
 botToken = open("botToken.txt", "r")
 botToken = botToken.read()
 client = commands.Bot(command_prefix="!bot ")
+startup_extension = ["moderation"]
 
 @client.event
 async def on_ready():
     print("Bot has been deployed")
-
 
 @client.command()
 async def hello(ctx):
@@ -88,26 +88,14 @@ async def reminder_info(ctx):
     info_embed.add_field(name="Format:",value="`------------------`",inline=False)
     info_embed.add_field(name='!bot reminder "your task" time in s/m/h ',value="`------------------`",inline=False)
 
-    await ctx.send(embed=info_embed)
+    await ctx.send(embed=info_embed)      
 
-@client.command(pass_context=True)
-async def ban(ctx,members:discord.Member,reason=None):
-    await ctx.guild.ban(user=members, reason=reason)
-
-    channel=client.get_channel(648197664659341394)
-    ban_embed=await displayEmbed(ctx, title=f"User{members} has been banned by {ctx.author.name}",colour=discord.Colour.dark_gold())
-    await channel.send(embed=ban_embed)
-
-@client.command(pass_context=True)
-async def kick(ctx, members:discord.Member, reason=None):
-    await ctx.guild.kick(user=members, reason=reason)
-
-    channel=client.get_channel(648197664659341394)
-    kick_embed=await displayEmbed(ctx, title=f"User{members} has been kicked by {ctx.author.name}",colour=discord.Colour.dark_gold())
-    await channel.send(embed=kick_embed)
-
-@client.command(pass_context=True)
-async def clear(ctx, delete=400):
-    await ctx.channel.purge(limit=delete+1)
+if __name__ == '__main__':
+    for extension in startup_extension:
+        try:
+            client.load_extension(extension)
+        except Exception as e:
+            exc = '{}: {}'.format(type(e).__name__, e)
+            print('Failed to load extension {}\n{}'.format(extension, exc))
 
 client.run(botToken)
