@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+from main import displayEmbed
+
 
 class Moderation(commands.Cog):
 	def __init__(self, client):
