@@ -3,15 +3,15 @@ from discord.ext import commands
 from datetime import datetime
 from asyncio import sleep
 from random import randrange 
+import os
 
 botToken = open("botToken.txt", "r")
 botToken = botToken.read()
 client = commands.Bot(command_prefix="!bot ")
-startup_extension = ["moderation"]
 
 @client.event
 async def on_ready():
-    print("Bot has been deployed")
+    print("Mother file is online")
 
 @client.command()
 async def hello(ctx):
@@ -90,12 +90,8 @@ async def reminder_info(ctx):
 
     await ctx.send(embed=info_embed)      
 
-if __name__ == '__main__':
-    for extension in startup_extension:
-        try:
-            client.load_extension(extension)
-        except Exception as e:
-            exc = '{}: {}'.format(type(e).__name__, e)
-            print('Failed to load extension {}\n{}'.format(extension, exc))
-
+for filename in os.listdir("./cogs"):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
+            
 client.run(botToken)
