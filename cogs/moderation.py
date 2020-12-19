@@ -25,8 +25,17 @@ class Moderation(commands.Cog):
 	    await ctx.channel.send(embed=kick_embed)
 
 	@commands.command(pass_context=True)
-	async def clear(self,ctx, delete=400):
-	    await ctx.channel.purge(limit=delete+1)
+	async def clear(self,ctx, delete=0):
+		if(delete==0):
+			await ctx.channel.purge(limit=delete+1)
+			title="No value or zero value"
+			desc="Please put value more than 1"
+			color=discord.Color.dark_red()
+			clear_embed=await displayEmbed(ctx,title,desc,color)			
+			await ctx.send(ctx.author.mention)
+			await ctx.send(embed=clear_embed)
+		else:
+			await ctx.channel.purge(limit=delete+1)
 
 def setup(client):
     client.add_cog(Moderation(client))    

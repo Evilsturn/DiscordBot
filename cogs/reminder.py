@@ -4,17 +4,15 @@ from main import displayEmbed
 from datetime import datetime
 from random import randrange
 
-client=commands.Bot(command_prefix="!bot ")
-
 class Reminder(commands.Cog):
     def __init__(self, client):
 	    self.client = client
         
     @commands.Cog.listener()
     async def on_ready(self):
-	    print("Reminder cog is online")
+        print("Reminder cog is online")
 
-    @client.command(pass_context=True)
+    @commands.command(pass_context=True)
     async def reminder(self,ctx,task,timings):
         user_mention = ctx.author.mention
         user_name=ctx.author.display_name
@@ -67,7 +65,7 @@ class Reminder(commands.Cog):
                 await ctx.send(embed=branch_embed)
                 break
 
-    @client.command(pass_context=True)
+    @commands.command(pass_context=True)
     async def reminder_info(self,ctx):
         title="How to reminder 101!"
         desc=None

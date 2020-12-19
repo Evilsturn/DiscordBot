@@ -11,10 +11,6 @@ client = commands.Bot(command_prefix="!bot ")
 async def on_ready():
     print("Mother file is online")
 
-@client.command()
-async def hello(ctx):
-    await ctx.send("Hi!")
-
 async def displayEmbed(ctx,title,desc,colour):
     await sleep(2)
     main_embed = discord.Embed(
@@ -27,4 +23,5 @@ async def displayEmbed(ctx,title,desc,colour):
 for filename in os.listdir("./cogs"):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
+
 client.run(botToken)
