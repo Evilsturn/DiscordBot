@@ -4,6 +4,7 @@ from main import displayEmbed
 import wikipedia as wiki
 import random
 from mal.anime_search import AnimeSearch
+from mal.manga_search import MangaSearch
 
 class Fun(commands.Cog):
 	def __init__(self, client):
@@ -11,7 +12,7 @@ class Fun(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_ready(self):
-		print("fun cog is online")
+		print("Fun cog is online")
 
 	@commands.command(pass_context = True)
 	async def search(self, ctx, query):
@@ -44,26 +45,53 @@ class Fun(commands.Cog):
  
 	@commands.command()
 	async def animesearch(self,ctx,name):
-			search=AnimeSearch(name,timeout=30)
-			color=0x000000
-			try:
+		user_mention=ctx.author.mention
+		search=AnimeSearch(name,timeout=30)
+		color=0x000000
+		try:
 			
-				firstHit=search.results[0].title
-				synopsis=search.results[0].synopsis
-				episodes=search.results[0].episodes
-				score=search.results[0].score
-				img_url=search.results[0].image_url
-				url=search.results[0].url
-				anime_embed=await displayEmbed(ctx,firstHit,synopsis,color)
-				anime_embed.add_field(name="Number of episodes:",value=episodes,inline=True)
-				anime_embed.add_field(name="Score:",value=score,inline=True)
-				anime_embed.set_thumbnail(url=img_url)
-				anime_embed.set_footer(text=url)
+			firstHit=search.results[0].title
+			synopsis=search.results[0].synopsis
+			episodes=search.results[0].episodes
+			score=search.results[0].score
+			img_url=search.results[0].image_url
+			url=search.results[0].url
+			anime_embed=await displayEmbed(ctx,firstHit,synopsis,color)
+			anime_embed.add_field(name="Number of episodes:",value=episodes,inline=True)
+			anime_embed.add_field(name="Score:",value=score,inline=True)
+			anime_embed.set_thumbnail(url=img_url)
+			anime_embed.set_footer(text=url)
 				
-				await ctx.send(embed=anime_embed)
-			except TimeoutError:
-				await ctx.send(ctx.author.mention)
-				await ctx.send("Try to reply within 30 seconds")
+			await ctx.send(user_mention)
+			await ctx.send(embed=anime_embed)
+		except TimeoutError:
+			await ctx.send(user_mention)
+			await ctx.send("Try to reply within 30 seconds")
+
+	@commands.command()
+	async def mangasearch(self,ctx,name):
+		user_mention=ctx.author.mention
+		search=MangaSearch(name,timeout=30)
+		color=0xffffff
+		try:
+
+		    firstHit=search.results[0].title
+		    synopsis=search.results[0].synopsis
+		    volumes=search.results[0].volumes
+		    score=search.results[0].score
+		    img_url=search.results[0].image_url
+		    url=search.results[0].url
+		    manga_embed=await displayEmbed(ctx,firstHit,synopsis,color)
+		    manga_embed.add_field(name="Number of volumes:",value=volumes,inline=True)
+		    manga_embed.add_field(name="Score:",value=score,inline=True)
+		    manga_embed.set_thumbnail(url=img_url)
+		    manga_embed.set_footer(text=url)
+		    
+		    await ctx.send(user_mention)
+		    await ctx.send(embed=manga_embed)
+		except TimeoutError:
+			await ctx.send(user_mention)
+			await ctx.send("Try to reply within 30 seconds")
 
 def setup(client):
 	client.add_cog(Fun(client))
