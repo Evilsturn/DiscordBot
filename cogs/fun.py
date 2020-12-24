@@ -5,6 +5,7 @@ import wikipedia as wiki
 import random
 from mal.anime_search import AnimeSearch
 from mal.manga_search import MangaSearch
+from asyncio import sleep
 
 class Fun(commands.Cog):
 	def __init__(self, client):
@@ -93,5 +94,43 @@ class Fun(commands.Cog):
 			await ctx.send(user_mention)
 			await ctx.send("Try to reply within 30 seconds")
 
+	@commands.command(pass_context=True, aliases=["roulette","russianroulette","rr"])
+	async def russian_roulette(self,ctx,rounds):
+		member=ctx.author
+		if(int(rounds)>6):
+			await ctx.send("A magnum has 6 capacity....how many bullets are you gonna put?")
+			await ctx.send("Min:0, Max:6")
+		elif int(rounds) == 0:
+			await ctx.send("No load detected.....")
+			await ctx.send("Min:0, Max:6")
+		elif int(rounds)<0:
+			ctx.send("No u")
+			
+		chamber=random.randrange(int(rounds),7)
+		if(int(rounds)>0 and int(rounds)<=6):
+		
+			if(chamber==6):
+				await ctx.send("Rolling the barrel")
+				await ctx.send("Ah~ It seems like ........oh fu---")
+				await sleep(1)
+				await ctx.send("**BANG**")
+				await member.create_dm()
+				await member.dm_channel.send("You died")
+				await sleep(2)
+				await ctx.guild.kick(user=member, reason="Got shot by a .457 magnum")
+
+			else:
+				await ctx.send("Rolling the barrel")
+				await ctx.send("Ah~ It seems like ........oh fu---")
+				await sleep(1)
+				await ctx.send("**CHING**")
+				await sleep(2)
+				await ctx.send("You survived OwO")
+	
+	@russian_roulette.error
+	async def russian_roulette_error(self,ctx,error):
+		if isinstance(error, commands.MissingRequiredArgument):
+			await ctx.send("Load the chamber with at least a single bullet....or more")
+			await ctx.send("Min:1, Max:6")
 def setup(client):
 	client.add_cog(Fun(client))
