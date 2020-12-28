@@ -22,6 +22,15 @@ async def on_member_join(member):
         await member.dm_channel.send(f"Hope you have a great time in our server")
     elif choice==3:
         await member.dm_channel.send(f"WELCOME~~~~ {member.name}, this is a bot message to welcome you!")
+    channel=client.get_channel(648197664659341394)
+    await channel.edit(name=f'Member Count: {channel.guild.member_count}')
+
+@client.event
+async def on_member_leave(member):
+    await member.create_dm()
+    await member.dm_channel.send("You have left WeebLand, we are sad to see you go :(")
+    channel=client.get_channel(648197664659341394)
+    await channel.edit(name=f'Member Count: {channel.guild.member_count}')
 
 async def displayEmbed(ctx,title,desc,colour):
     main_embed = discord.Embed(

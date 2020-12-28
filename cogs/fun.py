@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 from main import displayEmbed
 import wikipedia as wiki
@@ -132,5 +131,6 @@ class Fun(commands.Cog):
 		if isinstance(error, commands.MissingRequiredArgument):
 			await ctx.send("Load the chamber with at least a single bullet....or more")
 			await ctx.send("Min:1, Max:6")
+	
 def setup(client):
 	client.add_cog(Fun(client))
