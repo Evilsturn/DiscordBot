@@ -1,8 +1,7 @@
 botToken.txt
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+__pycache__/*.pyc
+cogs/_pycache_/*.pyc
+
 
 # C extensions
 *.so
