@@ -1,3 +1,2 @@
 botToken.txt
-__pycache__/*.pyc
-cogs/_pycache_/*.pyc
+**/__pycache__/
