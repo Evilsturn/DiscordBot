@@ -15,7 +15,7 @@ class Fun(commands.Cog):
 		print("Fun cog is online")
 
 	@commands.command(pass_context = True)
-	async def search(self, ctx, query):
+	async def wikisearch(self, ctx, query):
 		try:
 			user = ctx.author.mention
 			title = query.upper()
@@ -42,57 +42,48 @@ class Fun(commands.Cog):
 			title="**YES!!!**"
 			yes_embed=await displayEmbed(ctx,title,desc,color)
 			await ctx.send(embed=yes_embed)
- 
+	
 	@commands.command()
 	async def animesearch(self,ctx,name):
 		user_mention=ctx.author.mention
 		search=AnimeSearch(name,timeout=30)
 		color=0x000000
-		try:
-			
-			firstHit=search.results[0].title
-			synopsis=search.results[0].synopsis
-			episodes=search.results[0].episodes
-			score=search.results[0].score
-			img_url=search.results[0].image_url
-			url=search.results[0].url
-			anime_embed=await displayEmbed(ctx,firstHit,synopsis,color)
-			anime_embed.add_field(name="Number of episodes:",value=episodes,inline=True)
-			anime_embed.add_field(name="Score:",value=score,inline=True)
-			anime_embed.set_thumbnail(url=img_url)
-			anime_embed.set_footer(text=url)
+		
+		firstHit=search.results[0].title
+		synopsis=search.results[0].synopsis
+		episodes=search.results[0].episodes
+		score=search.results[0].score
+		img_url=search.results[0].image_url
+		url=search.results[0].url
+		anime_embed=await displayEmbed(ctx,firstHit,synopsis,color)
+		anime_embed.add_field(name="Number of episodes:",value=episodes,inline=True)
+		anime_embed.add_field(name="Score:",value=score,inline=True)
+		anime_embed.set_thumbnail(url=img_url)
+		anime_embed.set_footer(text=url)
 				
-			await ctx.send(user_mention)
-			await ctx.send(embed=anime_embed)
-		except TimeoutError:
-			await ctx.send(user_mention)
-			await ctx.send("Try to reply within 30 seconds")
-
+		await ctx.send(user_mention)
+		await ctx.send(embed=anime_embed)
+		
 	@commands.command()
 	async def mangasearch(self,ctx,name):
 		user_mention=ctx.author.mention
 		search=MangaSearch(name,timeout=30)
 		color=0xffffff
-		try:
-
-		    firstHit=search.results[0].title
-		    synopsis=search.results[0].synopsis
-		    volumes=search.results[0].volumes
-		    score=search.results[0].score
-		    img_url=search.results[0].image_url
-		    url=search.results[0].url
-		    manga_embed=await displayEmbed(ctx,firstHit,synopsis,color)
-		    manga_embed.add_field(name="Number of volumes:",value=volumes,inline=True)
-		    manga_embed.add_field(name="Score:",value=score,inline=True)
-		    manga_embed.set_thumbnail(url=img_url)
-		    manga_embed.set_footer(text=url)
+		firstHit=search.results[0].title
+		synopsis=search.results[0].synopsis
+		volumes=search.results[0].volumes
+		score=search.results[0].score
+		img_url=search.results[0].image_url
+		url=search.results[0].url
+		manga_embed=await displayEmbed(ctx,firstHit,synopsis,color)
+		manga_embed.add_field(name="Number of volumes:",value=volumes,inline=True)
+		manga_embed.add_field(name="Score:",value=score,inline=True)
+		manga_embed.set_thumbnail(url=img_url)
+		manga_embed.set_footer(text=url)
 		    
-		    await ctx.send(user_mention)
-		    await ctx.send(embed=manga_embed)
-		except TimeoutError:
-			await ctx.send(user_mention)
-			await ctx.send("Try to reply within 30 seconds")
-
+		await ctx.send(user_mention)
+		await ctx.send(embed=manga_embed)
+		
 	@commands.command(pass_context=True, aliases=["roulette","russianroulette","rr"])
 	async def russian_roulette(self,ctx,rounds):
 		member=ctx.author
@@ -131,6 +122,6 @@ class Fun(commands.Cog):
 		if isinstance(error, commands.MissingRequiredArgument):
 			await ctx.send("Load the chamber with at least a single bullet....or more")
 			await ctx.send("Min:1, Max:6")
-	
+
 def setup(client):
 	client.add_cog(Fun(client))
